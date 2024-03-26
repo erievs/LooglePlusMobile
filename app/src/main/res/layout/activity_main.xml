@@ -20,4 +20,15 @@
         android:layout_marginBottom="1dp"
         android:text="Refresh" />
 
+
+    <Button
+        android:id="@+id/btnSModal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="319dp"
+        android:layout_marginBottom="1dp"
+        android:text="Post" />
+
 </RelativeLayout>
