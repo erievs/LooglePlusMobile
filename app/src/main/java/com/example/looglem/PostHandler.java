@@ -2,6 +2,7 @@ package com.example.looglem;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -31,7 +32,7 @@ public class PostHandler {
     public void fetchPostsData(PostFetchListener listener) {
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
-                .url("http://kspc.serv00.net/apiv1/mobile_posts.php")
+                .url("http://plus.loogle.mooo.com/apiv1/mobile_posts.php")
                 .build();
 
         client.newCall(request).enqueue(new Callback() {
@@ -58,6 +59,9 @@ public class PostHandler {
                             String content = postObject.getString("content");
                             String imageUrl = postObject.getString("image_url");
                             String createdAt = postObject.getString("created_at");
+                            String postLinkUrl = postObject.getString("post_link_url");
+
+                            Log.d("postLinkUrl", "Post Link Url: " + postLinkUrl);
 
                             // Parse comments
                             JSONArray commentsArray = jsonObject.getJSONArray("comments");
@@ -70,7 +74,7 @@ public class PostHandler {
                                 comments.add(comment);
                             }
 
-                            Post post = new Post(id, username, content, imageUrl, createdAt, comments);
+                            Post post = new Post(id, username, content, imageUrl, createdAt, postLinkUrl, comments);
                             postList.add(post);
                         }
                         new Handler(Looper.getMainLooper()).post(() -> listener.onSuccess(postList));

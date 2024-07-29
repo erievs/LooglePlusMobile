@@ -1,5 +1,7 @@
 package com.example.looglem;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -48,7 +50,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
     }
 
     static class PostViewHolder extends RecyclerView.ViewHolder {
-        TextView idTextView, usernameTextView, contentTextView, createdAtTextView;
+        TextView idTextView, usernameTextView, contentTextView, createdAtTextView, postUrlTextView;
         ImageView imageView;
         TextView commentsTextView;
 
@@ -59,6 +61,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
             contentTextView = itemView.findViewById(R.id.contentTextView);
             createdAtTextView = itemView.findViewById(R.id.createdAtTextView);
             imageView = itemView.findViewById(R.id.imageView);
+            postUrlTextView = itemView.findViewById(R.id.postUrlView);
             commentsTextView = itemView.findViewById(R.id.commentsTextView);
         }
 
@@ -67,6 +70,20 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
             usernameTextView.setText(post.getUsername());
             contentTextView.setText(post.getContent());
             createdAtTextView.setText(post.getCreatedAt());
+
+            String postLinkUrl = post.getPostLinkUrl();
+            if (postLinkUrl != null && !postLinkUrl.trim().isEmpty()) {
+                postUrlTextView.setText(postLinkUrl);
+                postUrlTextView.setVisibility(View.VISIBLE);
+
+                postUrlTextView.setOnClickListener(v -> {
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    intent.setData(Uri.parse(postLinkUrl));
+                    itemView.getContext().startActivity(intent);
+                });
+            } else {
+                postUrlTextView.setVisibility(View.GONE);
+            }
 
             imageView.setVisibility(View.VISIBLE);
 

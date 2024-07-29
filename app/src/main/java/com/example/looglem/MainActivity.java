@@ -1,5 +1,6 @@
 package com.example.looglem;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.util.Log;
@@ -35,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
     private SwipeRefreshLayout swipeRefreshLayout;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,11 +60,27 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                fetchPosts(); // Refresh the posts
+            }
+        });
+
         Button btnRefresh = findViewById(R.id.btnRefresh);
         btnRefresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 refreshPostList();
+            }
+        });
+
+        Button btnSModal = findViewById(R.id.btnSModal);
+        btnSModal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showSubmitPostModal();
             }
         });
 
@@ -106,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
                 .build();
 
         Request request = new Request.Builder()
-                .url("http://kspc.serv00.net/apiv1/submit_mobile_post.php")
+                .url("http://plus.loogle.mooo.com/apiv1/submit_mobile_post.php")
                 .post(formBody)
                 .build();
 

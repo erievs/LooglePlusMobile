@@ -6,19 +6,20 @@ public class Post {
     private final String id;
     private final String username;
     private final String content;
-    private final String image_url;
+    private final String imageUrl;
     private final String createdAt;
+    private final String postLinkUrl;
     private final List<Comment> comments;
 
-    public Post(String id, String username, String content, String image_url, String createdAt, List<Comment> comments) {
+    public Post(String id, String username, String content, String imageUrl, String createdAt, String postLinkUrl, List<Comment> comments) {
         this.id = id;
         this.username = username;
         this.content = content;
-        this.image_url = image_url;
+        this.imageUrl = imageUrl;
         this.createdAt = createdAt;
+        this.postLinkUrl = postLinkUrl;
         this.comments = comments;
     }
-
 
     public String getId() {
         return id;
@@ -33,11 +34,15 @@ public class Post {
     }
 
     public String getImageUrl() {
-        return image_url;
+        return imageUrl;
     }
 
     public String getCreatedAt() {
         return createdAt;
+    }
+
+    public String getPostLinkUrl() {
+        return postLinkUrl;
     }
 
     public List<Comment> getComments() {
